@@ -1,6 +1,7 @@
 export const environment = {
-    diretorios: {
-        logDir: `${__dirname}/../logs`
+    paths: {
+        logDir: `${__dirname}/../logs`,
+        filesDir: `${__dirname}/../files`
     },
     crawler: {
         //oabInicial: 400000

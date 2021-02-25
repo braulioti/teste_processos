@@ -17,8 +17,8 @@ export class CrawlerController {
         this.oabInicial = oabInicial;
     }
 
-    getAdvogado(numInscricao: number): Promise<any> {
-        return new Promise<any>(async resolve => {
+    getAdvogado(numInscricao: number): Promise<AdvogadoModel> {
+        return new Promise<AdvogadoModel>(async resolve => {
             try {
                 await this.page.goto(this.url);
                 await this.page.type('#nr_inscricao', numInscricao.toString());
@@ -64,6 +64,7 @@ export class CrawlerController {
     capturaAdvogados(): Promise<AdvogadoModel[]> {
         return new Promise<AdvogadoModel[]>(async (resolve, reject) => {
             let posicao = environment.crawler.oabInicial;
+            let retorno = [];
 
             this.browser = await puppeteer.launch();
             this.page = await this.browser.newPage();
@@ -71,12 +72,12 @@ export class CrawlerController {
             let finished = false;
 
             while (!finished) {
-                const retorno: AdvogadoModel = await this.getAdvogado(posicao);
-                if (retorno)  {
-                    if (retorno.numero === '-1') {
+                const advogado: AdvogadoModel = await this.getAdvogado(posicao);
+                if (advogado)  {
+                    if (advogado.numero === '-1') {
                         finished = true;
                     } else {
-                        console.log(retorno);
+                        retorno.push(advogado);
                         posicao = posicao + 1;
                     }
                 } else {
@@ -85,7 +86,7 @@ export class CrawlerController {
             }
 
             this.browser.close();
-            resolve(null);
+            resolve(retorno);
         });
     }
 }
