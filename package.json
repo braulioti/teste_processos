@@ -7,9 +7,11 @@
   "author": "Bráulio Figueiredo",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^14.14.31",
     "json2csv": "^5.0.1",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.2",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "ts-node": "5.0.1",
