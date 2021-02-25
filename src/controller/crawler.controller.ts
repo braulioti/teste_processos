@@ -17,10 +17,6 @@ export class CrawlerController {
         this.oabInicial = oabInicial;
     }
 
-    async timeout(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     getAdvogado(numInscricao: number): Promise<any> {
         return new Promise<any>(async resolve => {
             try {
@@ -44,6 +40,17 @@ export class CrawlerController {
                     advogado.data = $('#dvConsultaInscritos > div:nth-child(2) > ul > li:nth-child(4)').text().split(": ")[1];
                     advogado.subsecao = $('#dvConsultaInscritos > div:nth-child(2) > ul > li:nth-child(5)').text().split(": ")[1];
                     advogado.situacao = $('#dvConsultaInscritos > div:nth-child(2) > ul > li:nth-child(6)').text().split(": ")[1];
+
+                    const urlImage = $('#dvConsultaInscritos > div:nth-child(2) > ul > img').attr("src");
+                    try {
+                        if (urlImage && urlImage !== '') {
+                            const axios = require('axios');
+                            let image = await axios.get(urlImage, {responseType: 'arraybuffer'});
+                            advogado.foto = Buffer.from(image.data).toString('base64');
+                        }
+                    } catch (e) {
+                        advogado.foto = null;
+                    }
                 }
 
                 resolve(advogado);
