@@ -4,8 +4,7 @@ export const environment = {
         filesDir: `${__dirname}/../files`
     },
     crawler: {
-        //oabInicial: 400000
-        oabInicial: 454584
+        oabInicial: 453000
     }
 };
 

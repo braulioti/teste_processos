@@ -11,7 +11,7 @@ export class SalvaCsvController {
             fs.mkdirSync(environment.paths.filesDir);
         }
 
-        const fieldsCSV: string[] = ['nome', 'numero', 'data', 'subsecao', 'situacao', 'foto SUS'];
+        const fieldsCSV: string[] = ['nome', 'numero', 'data', 'subsecao', 'situacao', 'foto'];
 
         const parser = new Parser(fieldsCSV);
         const csv = parser.parse(advogados);

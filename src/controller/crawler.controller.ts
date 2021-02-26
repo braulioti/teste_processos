@@ -4,8 +4,6 @@ import * as cheerio from 'cheerio';
 import {Browser, Page} from 'puppeteer';
 import {environment} from '../environments';
 
-// 454586
-
 export class CrawlerController {
     private oabInicial: number;
 
@@ -70,16 +68,22 @@ export class CrawlerController {
             this.page = await this.browser.newPage();
 
             let finished = false;
+            let contador = 0;
 
             while (!finished) {
                 const advogado: AdvogadoModel = await this.getAdvogado(posicao);
                 if (advogado)  {
                     if (advogado.numero === '-1') {
-                        finished = true;
+                        contador = contador + 1;
                     } else {
                         retorno.push(advogado);
-                        posicao = posicao + 1;
+                        contador = 0;
                     }
+
+                    if (contador === 5) {
+                        finished = true;
+                    }
+                    posicao = posicao + 1;
                 } else {
                     await setTimeout(() => {}, 2000);
                 }
