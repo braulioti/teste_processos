@@ -16,3 +16,4 @@
 ### Comentários
 
 - Devido ao volume de arquivos de fotos gerados no projeto inicial foi alterado o número de OAB inicial para 453000
+- Vídeo explicativo do projeto na pasta video
